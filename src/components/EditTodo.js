@@ -2,13 +2,9 @@ import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import Modal, { Backdrop, ModalBody, ModalHeader } from './Modal';
 
+export default function EditTodo({ todo, editTodo }) {
 
-function EditTodo({ todo, editTodo }) {
     const [modal, setModal] = useState(false);
-
-    const toggle = () => {
-        setModal(!modal)
-    }
 
     const formik = useFormik({
         initialValues: {
@@ -28,16 +24,15 @@ function EditTodo({ todo, editTodo }) {
             <div onClick={() => setModal(!modal)} className='col-6'><i className="bi bi-pencil-fill editIcon" data-bs-toggle="modal" data-bs-target="#Modal"></i></div>
 
             <Backdrop show={modal} clicked={() => setModal(!modal)} />
+
             <Modal isOpen={modal}>
+
                 <ModalHeader>
                     <h3 className='text-center'>Edit Todo</h3>
-                    <button
-                        className="btn-close"
-                        aria-label="Close"
-                        onClick={() => toggle()}
-                    >
+                    <button className="btn-close" onClick={() => setModal(!modal)}>
                     </button>
                 </ModalHeader>
+
                 <ModalBody>
                     <form onSubmit={formik.handleSubmit}>
                         <input type="hidden" id='id' name='id' value={formik.values.id} />
@@ -55,5 +50,3 @@ function EditTodo({ todo, editTodo }) {
         </>
     )
 }
-
-export default EditTodo

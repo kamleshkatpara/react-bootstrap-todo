@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import Modal, { Backdrop, ModalBody, ModalHeader } from './Modal';
 import { useFormik } from 'formik';
 
-function AddTodo({ addTodo }) {
+export default function AddTodo({ addTodo }) {
 
     const [modal, setModal] = useState(false);
-
-    const toggle = () => {
-        setModal(!modal)
-    }
 
     const formik = useFormik({
         initialValues: {
@@ -24,21 +20,18 @@ function AddTodo({ addTodo }) {
 
     return (
         <>
-            <button type="button" className="btn btn-primary" onClick={() => toggle()} data-bs-toggle="modal" data-bs-target="#Modal">Add Todo</button>
+            <button type="button" className="btn btn-primary" onClick={() => setModal(!modal)} data-bs-toggle="modal" data-bs-target="#Modal">Add Todo</button>
 
-            <Backdrop show={modal} clicked={() => toggle()} />
+            <Backdrop show={modal} clicked={() => setModal(!modal)} />
+
             <Modal isOpen={modal}>
+
                 <ModalHeader>
                     <h3 className='text-center'>Add New Todo</h3>
-                    <button
-                        className="btn-close"
-                        aria-label="Close"
-                        onClick={() => toggle()}
-                    >
-                    </button>
+                    <button className="btn-close" onClick={() => setModal(!modal)}></button>
                 </ModalHeader>
-                <ModalBody>
 
+                <ModalBody>
                     <form onSubmit={formik.handleSubmit}>
                         <div className="mb-3">
                             <input type="text" id="name" name="name" className="form-control" placeholder="Name" onChange={formik.handleChange} value={formik.values.name} required />
@@ -54,5 +47,3 @@ function AddTodo({ addTodo }) {
         </>
     )
 }
-
-export default AddTodo

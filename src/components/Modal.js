@@ -1,44 +1,24 @@
 import React, { useEffect, useState } from 'react'
 
+export const ModalHeader = ({ children }) => <div className="modal-header">{children}</div>;
 
-export const ModalHeader = props => {
-    return <div className="modal-header">{props.children}</div>;
-};
+export const ModalBody = ({ children }) => <div className="modal-body">{children}</div>;
 
-export const ModalBody = props => {
-    return <div className="modal-body">{props.children}</div>;
-};
+export const ModalFooter = ({ children }) => <div className="modal-footer">{children}</div>;
 
-export const ModalFooter = props => {
-    return <div className="modal-footer">{props.children}</div>;
-};
+export const Backdrop = ({ show, clicked }) => (show ? <div className="Backdrop" onClick={clicked}></div> : null)
 
-
-export const Backdrop = (props) => (
-    props.show ? <div className="Backdrop" onClick={props.clicked}></div> : null
-)
-
-
-function Modal(props) {
-    const { isOpen, children } = props;
+export default function Modal({ isOpen, children }) {
     const [modalShow, setModalShow] = useState('');
     const [display, setDisplay] = useState('none');
 
-    const openModal = () => {
-        setModalShow('show');
-        setDisplay('block');
-    }
-
-    const closeModal = () => {
-        setModalShow('');
-        setDisplay('none');
-    }
-
     useEffect(() => {
         if (isOpen) {
-            openModal()
+            setModalShow('show');
+            setDisplay('block');
         } else {
-            closeModal()
+            setModalShow('');
+            setDisplay('none');
         }
         return () => {
 
@@ -55,12 +35,9 @@ function Modal(props) {
             aria-labelledby="ModalLabel"
             aria-hidden="true"
         >
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">{children}</div>
             </div>
         </div>
     )
 }
-
-
-export default Modal
