@@ -1,7 +1,7 @@
 import React from 'react'
 import Todo from '../components/Todo'
 
-function TodoList({ todos }) {
+function TodoList({ todos, editTodo, deleteTodo }) {
     return (
         <main>
             <div className="row justify-content-center">
@@ -16,11 +16,10 @@ function TodoList({ todos }) {
                     </thead>
                     <tbody>
                         {todos.length > 0 && todos.map((todo, key) =>
-                            <Todo key={todo.id} todo={todo} />
+                            <Todo key={todo.id} todo={todo} editTodo={editTodo} deleteTodo={deleteTodo} />
                         )}
                     </tbody>
                 </table>
-                {todos.length === 0 && <p className='text-center'>No Data Found</p>}
             </div>
 
         </main>

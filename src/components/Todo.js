@@ -1,16 +1,18 @@
 import React from 'react'
+import DeleteTodo from './DeleteTodo'
+import EditTodo from './EditTodo'
 
-function Todo({ todo }) {
+function Todo({ todo, editTodo, deleteTodo }) {
     return (
         <tr>
             <th scope="row">{todo.id}</th>
             <td >{todo.name}</td>
             <td>{todo.description}</td>
             <td>
-                <div className='col-6'><i className="bi bi-pencil-fill" style={{ fontSize: '1rem', color: 'green', cursor: 'pointer' }}></i></div>
+                <EditTodo todo={todo} editTodo={editTodo} />
             </td>
             <td>
-                <div className='col-6'><i className="bi bi-trash-fill" style={{ fontSize: '1rem', color: 'red', cursor: 'pointer' }}></i></div>
+                <DeleteTodo todo={todo} deleteTodo={deleteTodo} />
             </td>
         </tr>
     )

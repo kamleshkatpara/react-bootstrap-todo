@@ -1,9 +1,9 @@
+import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import Modal, { Backdrop, ModalBody, ModalHeader } from './Modal';
-import { useFormik } from 'formik';
 
-function AddTodo({ addTodo }) {
 
+function EditTodo({ todo, editTodo }) {
     const [modal, setModal] = useState(false);
 
     const toggle = () => {
@@ -12,11 +12,12 @@ function AddTodo({ addTodo }) {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            description: '',
+            id: todo.id,
+            name: todo.name,
+            description: todo.description,
         },
         onSubmit: (values, { resetForm }) => {
-            addTodo(values);
+            editTodo(values);
             resetForm();
             setModal(false);
         },
@@ -24,12 +25,12 @@ function AddTodo({ addTodo }) {
 
     return (
         <>
-            <button type="button" className="btn btn-primary" onClick={() => toggle()} data-bs-toggle="modal" data-bs-target="#Modal">Add Todo</button>
+            <div onClick={() => setModal(!modal)} className='col-6'><i className="bi bi-pencil-fill editIcon" data-bs-toggle="modal" data-bs-target="#Modal"></i></div>
 
-            <Backdrop show={modal} clicked={() => toggle()} />
+            <Backdrop show={modal} clicked={() => setModal(!modal)} />
             <Modal isOpen={modal}>
                 <ModalHeader>
-                    <h3 className='text-center'>Add New Todo</h3>
+                    <h3 className='text-center'>Edit Todo</h3>
                     <button
                         className="btn-close"
                         aria-label="Close"
@@ -38,8 +39,8 @@ function AddTodo({ addTodo }) {
                     </button>
                 </ModalHeader>
                 <ModalBody>
-
                     <form onSubmit={formik.handleSubmit}>
+                        <input type="hidden" id='id' name='id' value={formik.values.id} />
                         <div className="mb-3">
                             <input type="text" id="name" name="name" className="form-control" placeholder="Name" onChange={formik.handleChange} value={formik.values.name} required />
                         </div>
@@ -55,4 +56,4 @@ function AddTodo({ addTodo }) {
     )
 }
 
-export default AddTodo
+export default EditTodo
