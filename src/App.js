@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import AddTodo from './components/AddTodo';
 import Header from './components/Header';
-import SearchBox from './components/SearchBox';
 import TodoList from './containers/TodoList';
 import Loading from './components/Loading';
 
@@ -110,16 +109,15 @@ function App() {
 
       <div className='row mt-5 mb-3'>
         <div className='col-2'><AddTodo addTodo={addTodo} /></div>
-        <div className='col-10'><SearchBox /></div>
       </div>
 
       {showAlert && <AlertBox message={message} />}
 
       <TodoList editTodo={editTodo} deleteTodo={deleteTodo} todos={todos} />
 
-      {!loading && todos.length === 0 && <p className='text-center'>No Data Found</p>}
+      {!loading && !error && todos.length === 0 && <p className='text-center'>No Data Found</p>}
 
-      {!loading && error && <div class="alert alert-danger text-center" role="alert">Something went wrong</div>}
+      {!loading && error && <div className="alert alert-danger text-center" role="alert">Something went wrong</div>}
 
       {loading && !error && <Loading />}
 
